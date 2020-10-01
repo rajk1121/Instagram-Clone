@@ -5,6 +5,8 @@ const expressLogging = require('express-logging'),
       logger = require('logops');
 const mongoose = require('mongoose');
 const authRouter = require('./routers/auth');
+const userRouter = require('./routers/userRouter')
+const postRouter = require('./routers/postRouter')
 const PORT = process.env.PORT || 3000
 mongoose.connect(keys.MONGODBURI, {
     useNewUrlParser : true,
@@ -18,7 +20,9 @@ mongoose.connection.on('error', (err)=>{
 })
 app.use(expressLogging(logger));
 app.use(express.json())
+app.use('/user/', userRouter)
 app.use("/auth/", authRouter)
+app.use('/post/', postRouter)
 app.get("*" , (req, res)=>{
     res.send("Hello World")
 })
