@@ -2,9 +2,22 @@ const userModel = require("../models/userSchema")
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const {JWTKEY} = require('../keys.json')
+const passwordValidator = require("password-validator")
+var schema = new passwordValidator();
+ 
+// Add properties to it
+schema
+.is().min(8)                                    // Minimum length 8
+.is().max(100)                                  // Maximum length 100
+.has().uppercase()                              // Must have uppercase letters
+.has().lowercase()                                // Must have at least 2 digits
+.has().not().spaces()                           // Should not have spaces
+.has().symbols()
+.is().not().oneOf(['Passw0rd', 'Password123']); // Blacklist these values
+ 
 const login = async(req, res)=>{
     try{
-        let body = req.body
+        let body = req.query
         if(!body.email || !body.password){
             res.status(422).json({
                 message : "Invalid Body"
@@ -19,9 +32,11 @@ const login = async(req, res)=>{
                 let ifMatch = await bcrypt.compare(body.password , dbObj.password)
                 if(ifMatch){
                     let token = jwt.sign({id : dbObj._id}, JWTKEY)
+                    const {id, Name, email, url} = dbObj
                     res.json({
                         message : "Login Successfull",
-                        token : token
+                        token : token,
+                        user : {id, Name, email, url}
                     })
                 }else{
                     res.status(400).json({
@@ -40,7 +55,7 @@ const login = async(req, res)=>{
 const signUp = async (req, res)=>{
     try{
         let userObj = req.body
-        if(!userObj.email || !userObj.Name || !userObj.password){
+        if(!userObj.email || !userObj.Name || !userObj.password || !userObj.url){
             res.status(422).json({
                 message : "Invalid Body"
             })
@@ -54,9 +69,14 @@ const signUp = async (req, res)=>{
             }else{
                 if(userObj.password != userObj.confirmPassword){
                     res.status(422).json({
-                        message : "Password and Confirm Password doesnot math"
+                        message : "Password and Confirm Password does not match"
                     })
                 }else{
+                    
+                    if(!schema.validate(userObj.password)){
+                        throw new Error("Invalid Password")
+                    }
+        
                     let hashedPassword = await bcrypt.hash(userObj.password, 8)
                     userObj.password = hashedPassword
                     let dbObj = new userModel(userObj)
@@ -71,9 +91,10 @@ const signUp = async (req, res)=>{
         }
         
     }catch(err){
-        // console.log(err)
+        err = (String)(err)
+        console.log(err)
         res.status(400).json({
-            message : err.errors.email ? "Invalid Email" : "Invalid Password"
+            message : err.includes("Invalid Email") ? "Invalid Email" : "Invalid Password"
         })
     }
 }

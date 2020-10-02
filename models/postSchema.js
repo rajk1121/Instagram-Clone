@@ -21,7 +21,13 @@ const postSchema = new mongoose.Schema({
     created : {
         type : Date,
         default : Date.now()
-    }
+    },
+    likes : [
+        {
+            type: ObjectId,
+            ref: "IGUser"
+        }
+    ]
 })
 const postModel = mongoose.model("IGPosts", postSchema)
 module.exports = postModel

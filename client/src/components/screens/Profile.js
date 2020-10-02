@@ -1,5 +1,24 @@
-import React from 'react'
-const Profile = ()=>{
+import React, {useState, useEffect} from 'react'
+import {useHistory} from 'react-router-dom'
+const Profile = (props)=>{
+    const history = useHistory()
+    const [myPics, setPics] = useState([])
+    useEffect(()=>{
+        fetch('/post/myPosts', {
+            method : "get",
+            headers : {
+                "Authorization" :"Bearer "+localStorage.getItem('jwt')
+            }
+        }).then(res=>res.json())
+        .then((data)=>{
+            console.log(data)
+            setPics(data.message)
+        })
+    }, [])
+    // if(!props.isLogged){
+    //     history.push('/login')
+    //     return
+    // }
     return (
        <div style={{
            margin: "0px auto",
@@ -12,11 +31,11 @@ const Profile = ()=>{
                borderBottom: "1px solid grey"
             }}>
                 <div>
-                    <img src="https://www.postplanner.com/hs-fs/hub/513577/file-2886416984-png/blog-files/facebook-profile-pic-vs-cover-photo-sq.png?width=250&height=250&name=facebook-profile-pic-vs-cover-photo-sq.png" style={{height:"160opx", width:"160px",borderRadius:"80px"}} />
+                    <img src={JSON.parse(localStorage.getItem('user')).url} style={{height:"150px", width:"160px",borderRadius:"50%"}} />
                 </div>
                 <div>
                         <h4>
-                            Rajat Kumar
+                            {JSON.parse(localStorage.getItem('user')).Name}
                         </h4>
                         <div style={{
                             display: "flex",
@@ -30,14 +49,13 @@ const Profile = ()=>{
                     </div>
            </div>
            <div className="gallery">
-               <img className="item" src="https://www.postplanner.com/hs-fs/hub/513577/file-2886416984-png/blog-files/facebook-profile-pic-vs-cover-photo-sq.png?width=250&height=250&name=facebook-profile-pic-vs-cover-photo-sq.png"></img>
-               <img className="item" src="https://www.postplanner.com/hs-fs/hub/513577/file-2886416984-png/blog-files/facebook-profile-pic-vs-cover-photo-sq.png?width=250&height=250&name=facebook-profile-pic-vs-cover-photo-sq.png"></img>
-               <img className="item" src="https://www.postplanner.com/hs-fs/hub/513577/file-2886416984-png/blog-files/facebook-profile-pic-vs-cover-photo-sq.png?width=250&height=250&name=facebook-profile-pic-vs-cover-photo-sq.png"></img>
-               <img className="item" src="https://www.postplanner.com/hs-fs/hub/513577/file-2886416984-png/blog-files/facebook-profile-pic-vs-cover-photo-sq.png?width=250&height=250&name=facebook-profile-pic-vs-cover-photo-sq.png"></img>
-               <img className="item" src="https://www.postplanner.com/hs-fs/hub/513577/file-2886416984-png/blog-files/facebook-profile-pic-vs-cover-photo-sq.png?width=250&height=250&name=facebook-profile-pic-vs-cover-photo-sq.png"></img>
-               <img className="item" src="https://www.postplanner.com/hs-fs/hub/513577/file-2886416984-png/blog-files/facebook-profile-pic-vs-cover-photo-sq.png?width=250&height=250&name=facebook-profile-pic-vs-cover-photo-sq.png"></img>
-               <img className="item" src="https://www.postplanner.com/hs-fs/hub/513577/file-2886416984-png/blog-files/facebook-profile-pic-vs-cover-photo-sq.png?width=250&height=250&name=facebook-profile-pic-vs-cover-photo-sq.png"></img>
-           </div>
+                {myPics.map((item)=>{
+                    return(
+                        <img className="item" src={item.photo}></img>
+                    )
+                    
+                })}
+            </div>
        </div>
             
     )

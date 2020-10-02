@@ -3,6 +3,7 @@ const userModel = require('../models/userSchema')
 const {JWTKEY} = require('../keys.json')
 const middleware = async (req, res, next)=>{
     try{
+        console.log(req.headers)
         let {authorization} = req.headers
         if(!authorization){
             res.status(401).json({

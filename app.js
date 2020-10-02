@@ -7,7 +7,7 @@ const mongoose = require('mongoose');
 const authRouter = require('./routers/auth');
 const userRouter = require('./routers/userRouter')
 const postRouter = require('./routers/postRouter')
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 3500
 mongoose.connect(keys.MONGODBURI, {
     useNewUrlParser : true,
     useUnifiedTopology: true
