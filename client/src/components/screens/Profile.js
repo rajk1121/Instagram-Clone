@@ -1,8 +1,16 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 import {useHistory} from 'react-router-dom'
+import {UserContext} from '../../App'
+import Modal from '../Modal'
 const Profile = (props)=>{
+    const {state, dispatch} = useContext(UserContext)
+    console.log(state)
     const history = useHistory()
     const [myPics, setPics] = useState([])
+    const [sub, setSub] = useState({
+        followers: 0,
+        following : 0
+    })
     useEffect(()=>{
         fetch('/post/myPosts', {
             method : "get",
@@ -11,18 +19,30 @@ const Profile = (props)=>{
             }
         }).then(res=>res.json())
         .then((data)=>{
-            console.log(data)
+            // let newData = {...data}
+            // newData.pics = data.message
+            // newData.following = data.user.following
+            // newData.followers = data.u
             setPics(data.message)
+            setSub({
+                followers: data.user.followers.length,
+                following : data.user.following.length
+            })
         })
     }, [])
     // if(!props.isLogged){
     //     history.push('/login')
     //     return
     // }
+    if(!state){
+        return(
+            <div></div>
+        )
+    }
     return (
        <div style={{
            margin: "0px auto",
-           maxWidth: "70%"
+           maxWidth: "80%"
        }}>
            <div style={{
                display: "flex",
@@ -33,6 +53,7 @@ const Profile = (props)=>{
                 <div>
                     <img src={JSON.parse(localStorage.getItem('user')).url} style={{height:"150px", width:"160px",borderRadius:"50%"}} />
                 </div>
+            
                 <div>
                         <h4>
                             {JSON.parse(localStorage.getItem('user')).Name}
@@ -42,19 +63,23 @@ const Profile = (props)=>{
                             justifyContent:"space-between",
                             width: "105%"
                         }}>
-                            <h6>40 Posts</h6>
-                            <h6>40 Folowers</h6>
-                            <h6>40 Following</h6>
+                            <h6>{myPics.length} Posts</h6>
+                            <h6>{sub.followers} Folowers</h6>
+                            <h6>{sub.following} Following</h6>
                         </div>
                     </div>
            </div>
            <div className="gallery">
-                {myPics.map((item)=>{
-                    return(
-                        <img className="item" src={item.photo}></img>
-                    )
-                    
-                })}
+               {myPics.length==0 ?
+               <h3 className="no-post">Sorry {state.Name}, No Posts to display</h3>
+            :
+            myPics.map((item)=>{
+                return(
+                    <Modal className="item" Item={item}></Modal>
+                )
+                
+            })
+            }
             </div>
        </div>
             

@@ -2,6 +2,7 @@ import React,{useContext} from 'react'
 import {Link} from 'react-router-dom'
 import {UserContext} from '../App'
 import {useHistory} from 'react-router-dom'
+import SearchModal from './searchModal'
 const Navbar = ()=>{
   const history = useHistory()
   const {state, dispatch} = useContext(UserContext)
@@ -17,6 +18,7 @@ const Navbar = ()=>{
         <div className="nav-wrapper">
           <Link to="#" className="brand-logo left">Instagram</Link>
           <ul id="nav-mobile" className="right">
+            <li><SearchModal></SearchModal></li>
             <li><Link to="/">Home</Link></li>
             <li><Link to="/profile">Profile</Link></li>
             <button className="btn waves-effect red darken-1" onClick={logout}>LogOut

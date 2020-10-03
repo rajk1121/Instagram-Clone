@@ -1,4 +1,5 @@
-const postModel = require('../models/postSchema')
+const postModel = require('../models/postSchema');
+const userModel = require('../models/userSchema');
 const createPost = async (req, res)=>{
     try{    
         let body = req.body;
@@ -29,7 +30,7 @@ const createPost = async (req, res)=>{
     }
 }
 const allPost = async(req, res)=>{
-    let data = await postModel.find().populate('postedBy', '_id Name')
+    let data = await postModel.find({postedBy : {$in : req.user.following}}).populate('postedBy', '_id Name url').populate('comments.user', '_id Name')
     res.json({
         message : data
     })
@@ -37,8 +38,10 @@ const allPost = async(req, res)=>{
 const myPost = async (req, res)=>{
     try{
         let posts = await postModel.find({postedBy : req.user})
+        let user = await userModel.findOne({_id : req.user._id})
         res.json({
-            message : posts
+            message : posts,
+            user : user
         })
     }catch(err){
         res.status(400).json({
@@ -52,6 +55,8 @@ const like = async (req, res)=>{
         let newObj = await postModel.findByIdAndUpdate({_id : req.body.postId}, {
             $push : {likes : req.user.id}
         }, {new : true})
+        newObj = newObj.populate("postedBy", "_id Name url")
+        console.log(newObj)
         res.json({
             message: "Liked",
             obj : newObj
@@ -64,7 +69,32 @@ const like = async (req, res)=>{
         })
     }
 }
+const comment = async (req, res)=>{
+    try{
+        console.log(req.body)
+        if(!req.body.comment){
+            res.status(422).json({
+                message: "Empty Comment Cannot be posted"
+            })
+        }
+        else{
+            console.log(req.body)
+            let newObj = await postModel.findByIdAndUpdate({_id : req.body.postId}, {
+                $push : {comments : {user : req.user.id, text: req.body.comment}}
+            }, {new : true}).populate('comments.user', '_id Name')
+            res.json({
+                message: "Commented",
+                obj : newObj
+            })
+        }
 
+    }catch(err){
+        console.log(err)
+        res.status(422).json({
+            message: "Error Occurred"
+        })
+    }
+}
 const unLike = async (req, res)=>{
     try{
         let newObj = await postModel.findByIdAndUpdate({_id : req.body.postId}, {
@@ -81,4 +111,4 @@ const unLike = async (req, res)=>{
         })
     }
 }
-module.exports = {createPost, allPost, myPost, like, unLike}
+module.exports = {createPost, allPost, myPost, like, unLike,comment}

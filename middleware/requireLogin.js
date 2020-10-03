@@ -16,6 +16,11 @@ const middleware = async (req, res, next)=>{
                 console.log(payload)
                 const {id} = payload
                 let dbObj = await userModel.findById(id)
+                if(dbObj.length==0){
+                    res.status(401).json({
+                        message : "Login Required"
+                    })
+                }
                 req.user = dbObj
                 // console.log(dbObj)
                 next()

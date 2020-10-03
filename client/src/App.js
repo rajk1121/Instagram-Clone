@@ -6,14 +6,18 @@ import LogIn from './components/screens/LogIn'
 import SignUp from './components/screens/SignUp'
 import Profile from './components/screens/Profile'
 import CreatePost from './components/screens/createPost'
+import OtherProfile from './components/screens/otherProfile'
 import {initialState,reducer} from './reducres/userReducer'
 import {BrowserRouter, Route, Switch, useHistory} from 'react-router-dom'
 export const UserContext = createContext()
 const Router = ()=>{
   const history = useHistory()
   const {state, dispatch} = useContext(UserContext)
+  console.log(state)
   useEffect(()=>{
+    console.log("dnoded")
     if(localStorage.getItem('user')){
+      console.log("local")
       dispatch({type : "USER", payload : JSON.parse(localStorage.getItem('user'))})
       history.push('/')
     }else{
@@ -30,6 +34,9 @@ const Router = ()=>{
         </Route>
         <Route path='/signup'>
           <SignUp></SignUp>
+        </Route>
+        <Route path='/show/:userId'>
+          <OtherProfile></OtherProfile>
         </Route>
         <Route path='/profile'>
           <Profile></Profile>

@@ -27,6 +27,17 @@ const postSchema = new mongoose.Schema({
             type: ObjectId,
             ref: "IGUser"
         }
+    ],
+    comments : [
+        {
+            text:{
+                type: String
+            },
+            user:{
+                type: ObjectId,
+                ref: "IGUser"
+            }
+        }
     ]
 })
 const postModel = mongoose.model("IGPosts", postSchema)
