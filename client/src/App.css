@@ -4,7 +4,7 @@
   font-family: 'Grand Hotel', cursive;
 }
 
-.auth-card, .create-post{
+.auth-card, .create-post, .password-guideline{
   padding: 2rem;
   text-align: center;
   max-width: 400px;
@@ -33,4 +33,16 @@
 .home-card input{
   width: 80% !important;
   margin: auto !important;
+}
+.preloader-wrapper{
+  margin:  auto;
+  justify-content: center;
+  display: flex;
+}
+.password-guideline{
+  text-align: left;
+}
+.password-guideline ol{
+  text-align: left;
+  font-weight: bold;
 }

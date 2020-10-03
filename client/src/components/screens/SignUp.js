@@ -14,31 +14,36 @@ const SignUp = (props)=>{
     const [url, setUrl] = useState()
     const [password, setPassowrd] = useState()
     const [confirmPassword, setConfirmPassword] = useState()
+    const[isLoading, setLoading] = useState(false)
     useEffect(()=>{
-        fetch('/auth/signUp',{
-            method: "post",
-            headers:{
-                "Content-type": "application/json"
-            },
-            body : JSON.stringify({
-                Name: name,
-                email : email,
-                password :password,
-                confirmPassword : confirmPassword,
-                url : url
+        if(url){
+            fetch('/auth/signUp',{
+                method: "post",
+                headers:{
+                    "Content-type": "application/json"
+                },
+                body : JSON.stringify({
+                    Name: name,
+                    email : email,
+                    password :password,
+                    confirmPassword : confirmPassword,
+                    url : url
+                })
+            }).then(res=>res.json())
+            .then((data)=>{
+                if(data.message == "Successfull"){
+                    M.toast({html : data.message , classes : "green darken-1"})
+                    history.push('/login')
+                }else{
+                    M.toast({html : data.message , classes : "red darken-1"})
+                    
+                }
+                setLoading(false)
             })
-        }).then(res=>res.json())
-        .then((data)=>{
-            if(data.message == "Successfull"){
-                M.toast({html : data.message , classes : "green darken-1"})
-                history.push('/login')
-            }else{
-                M.toast({html : data.message , classes : "red darken-1"})
-                
-            }
-        })
+        }
     }, [url])
     const request = ()=>{
+        setLoading(true)
         const fileData = new FormData()
         fileData.append("file", file)
         fileData.append("upload_preset", "inst-clone")
@@ -52,6 +57,7 @@ const SignUp = (props)=>{
             setUrl(data.url)
             
         }).catch((err)=>{
+            setLoading(false)
             console.log(err)
         })
     }
@@ -77,7 +83,7 @@ const SignUp = (props)=>{
                 ></input>
                 <div className="file-field input-field">
                 <div className="btn">
-                    <span>File</span>
+                    <span>Profile Pic</span>
                     <input type="file"
                     onChange={e=>setFile(e.target.files[0])}
                     />
@@ -86,14 +92,76 @@ const SignUp = (props)=>{
                     <input className="file-path validate" type="text" />
                 </div>
             </div>
-                <button className="btn waves-effect blue " onClick={request}>SignUp
-                </button>
+            {
+               isLoading ?
+               <button className="btn waves-effect blue darken-1" disabled onClick={request}>Sign Up
+            </button>
+            : 
+            <button className="btn waves-effect blue darken-1"  onClick={request}>Sign Up
+            </button>
+            }
+            {
+                isLoading ? 
+                <div class="preloader-wrapper big active">
+                <div class="spinner-layer spinner-blue">
+                  <div class="circle-clipper left">
+                    <div class="circle"></div>
+                  </div><div class="gap-patch">
+                    <div class="circle"></div>
+                  </div><div class="circle-clipper right">
+                    <div class="circle"></div>
+                  </div>
+                </div>
+          
+                <div class="spinner-layer spinner-red">
+                  <div class="circle-clipper left">
+                    <div class="circle"></div>
+                  </div><div class="gap-patch">
+                    <div class="circle"></div>
+                  </div><div class="circle-clipper right">
+                    <div class="circle"></div>
+                  </div>
+                </div>
+          
+                <div class="spinner-layer spinner-yellow">
+                  <div class="circle-clipper left">
+                    <div class="circle"></div>
+                  </div><div class="gap-patch">
+                    <div class="circle"></div>
+                  </div><div class="circle-clipper right">
+                    <div class="circle"></div>
+                  </div>
+                </div>
+          
+                <div class="spinner-layer spinner-green">
+                  <div class="circle-clipper left">
+                    <div class="circle"></div>
+                  </div><div class="gap-patch">
+                    <div class="circle"></div>
+                  </div><div class="circle-clipper right">
+                    <div class="circle"></div>
+                  </div>
+                </div>
+              </div>
+            
+                :
+                <div></div>
+            }
                 <h5>
                     <Link to="/login" > Already have an account? SigIn </Link>
                 </h5>
                 
             </div>
-         
+            <div className="card password-guideline">
+                <h4> </h4>
+                <ol>Password should - :
+                    <li>Minimum length 8</li>
+                    <li>Must have uppercase letters</li>
+                    <li>Must have at least 2 digits</li>
+                    <li>Should not have spaces</li>
+                    <li>Should have atleast one symbol (@, !, $, %, &amp;, # etc.)</li>
+                </ol>
+            </div>
         </div>
             
     )

@@ -13,6 +13,7 @@ const CreatePost = (props)=>{
     const [body, setBody] = useState()
     const [file, setFile] = useState()
     const [photo, setUrl] = useState()
+    const[isLoading, setLoading] = useState(false)
     useEffect(()=>{
         if(photo){
             fetch('/post/createPost',{
@@ -31,12 +32,14 @@ const CreatePost = (props)=>{
 
                     M.toast({html : data.message , classes : "red darken-1"})
                 }
+                setLoading(false)
             })
         }
     }, [photo])
     const request = ()=>{
+        setLoading(true)
         if(!title || !body || !file){
-            
+            setLoading(false)
             M.toast({html : "Provide all data" , classes : "red darken-1"})
             return;
         }
@@ -55,6 +58,7 @@ const CreatePost = (props)=>{
             setUrl(data.url)
             
         }).catch((err)=>{
+            setLoading(false)
             console.log(err)
         })
     }
@@ -81,8 +85,63 @@ const CreatePost = (props)=>{
                     <input className="file-path validate" type="text" />
                 </div>
             </div>
-            <button className="btn waves-effect waves-light blue darken-1" onClick={request}>Create Post
+            {
+                isLoading ? 
+                <button className="btn waves-effect waves-light blue darken-1" disabled onClick={request}>Create Post
+                </button>
+                :    
+                <button className="btn waves-effect waves-light blue darken-1" onClick={request}>Create Post
             </button>
+           
+           
+            }
+            {
+                isLoading ? 
+                <div class="preloader-wrapper big active">
+                <div class="spinner-layer spinner-blue">
+                  <div class="circle-clipper left">
+                    <div class="circle"></div>
+                  </div><div class="gap-patch">
+                    <div class="circle"></div>
+                  </div><div class="circle-clipper right">
+                    <div class="circle"></div>
+                  </div>
+                </div>
+          
+                <div class="spinner-layer spinner-red">
+                  <div class="circle-clipper left">
+                    <div class="circle"></div>
+                  </div><div class="gap-patch">
+                    <div class="circle"></div>
+                  </div><div class="circle-clipper right">
+                    <div class="circle"></div>
+                  </div>
+                </div>
+          
+                <div class="spinner-layer spinner-yellow">
+                  <div class="circle-clipper left">
+                    <div class="circle"></div>
+                  </div><div class="gap-patch">
+                    <div class="circle"></div>
+                  </div><div class="circle-clipper right">
+                    <div class="circle"></div>
+                  </div>
+                </div>
+          
+                <div class="spinner-layer spinner-green">
+                  <div class="circle-clipper left">
+                    <div class="circle"></div>
+                  </div><div class="gap-patch">
+                    <div class="circle"></div>
+                  </div><div class="circle-clipper right">
+                    <div class="circle"></div>
+                  </div>
+                </div>
+              </div>
+            
+                :
+                <div></div>
+            }
         </div>
     )
 

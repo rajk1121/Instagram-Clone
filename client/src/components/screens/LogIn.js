@@ -11,7 +11,9 @@ const LogIn = ()=>{
     // }
     const [password, setPassword] = useState()
     const [email, setEmail] = useState()
+    const[isLoading, setLoading] = useState(false)
     function request(){
+        setLoading(true)
         fetch('/auth/login?email='+email+"&password="+password,{
             method : "get"
         }).then(res=>res.json())
@@ -26,6 +28,8 @@ const LogIn = ()=>{
             }else{
                 M.toast({html : data.message , classes : "red darken-1"})
             }
+            
+            setLoading(false)
         })
     }
     return (
@@ -40,8 +44,61 @@ const LogIn = ()=>{
            value={password}
            onChange={(e)=>setPassword(e.target.value)}
            ></input>
-           <button className="btn waves-effect blue darken-1" onClick={request}>LogIn
+           {
+               isLoading ?
+               <button className="btn waves-effect blue darken-1" disabled onClick={request}>LogIn
             </button>
+            : 
+            <button className="btn waves-effect blue darken-1"  onClick={request}>LogIn
+            </button>
+            }
+            {
+                isLoading ? 
+                <div class="preloader-wrapper big active">
+                <div class="spinner-layer spinner-blue">
+                  <div class="circle-clipper left">
+                    <div class="circle"></div>
+                  </div><div class="gap-patch">
+                    <div class="circle"></div>
+                  </div><div class="circle-clipper right">
+                    <div class="circle"></div>
+                  </div>
+                </div>
+          
+                <div class="spinner-layer spinner-red">
+                  <div class="circle-clipper left">
+                    <div class="circle"></div>
+                  </div><div class="gap-patch">
+                    <div class="circle"></div>
+                  </div><div class="circle-clipper right">
+                    <div class="circle"></div>
+                  </div>
+                </div>
+          
+                <div class="spinner-layer spinner-yellow">
+                  <div class="circle-clipper left">
+                    <div class="circle"></div>
+                  </div><div class="gap-patch">
+                    <div class="circle"></div>
+                  </div><div class="circle-clipper right">
+                    <div class="circle"></div>
+                  </div>
+                </div>
+          
+                <div class="spinner-layer spinner-green">
+                  <div class="circle-clipper left">
+                    <div class="circle"></div>
+                  </div><div class="gap-patch">
+                    <div class="circle"></div>
+                  </div><div class="circle-clipper right">
+                    <div class="circle"></div>
+                  </div>
+                </div>
+              </div>
+            
+                :
+                <div></div>
+            }
        </div>
             
        </div>
