@@ -27,18 +27,22 @@ const Navbar = ()=>{
                 <a href="#" data-target="mobile-demo" className="sidenav-trigger"><i className="material-icons">menu</i></a>
                 
                   <Link to="/" className="brand-logo left hide-on-med-and-down">Instagram</Link>
-                <ul id="" className="right hide-on-med-and-down">
-                  <li><SearchModal></SearchModal></li>
+                  <ul style={{margin : "0 20px"}} className="right">
+                  <li><SearchModal ></SearchModal></li>
+                  </ul>
+                <ul  id="" className="right hide-on-med-and-down">
+                {/* <li><SearchModal className="right"></SearchModal></li> */}
                   <li><Link to="/">Home</Link></li>
                   <li><Link to="/profile">Profile</Link></li>
                   <button className="btn waves-effect red darken-1" onClick={logout}>LogOut
                   </button>
                   <li><Link to="/createPost">Create Post</Link></li>
                 </ul>
+                
               </div>
             </nav>
             <ul class="sidenav" id="mobile-demo">
-              <li><SearchModal></SearchModal></li>
+              {/* <li><SearchModal></SearchModal></li> */}
               <li><Link to="/">Home</Link></li>
               <li><Link to="/profile">Profile</Link></li>
               <li><Link to="/createPost">Create Post</Link></li>

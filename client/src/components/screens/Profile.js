@@ -110,7 +110,8 @@ const Profile = (props)=>{
                         <div style={{
                             display: "flex",
                             justifyContent:"space-between",
-                            width: "105%"
+                            width: "105%",
+                            flexWrap:"wrap",
                         }}>
                             <h6>{myPics.length} Posts</h6>
                             <h6>{sub.followers} Folowers</h6>

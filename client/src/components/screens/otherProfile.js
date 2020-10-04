@@ -130,7 +130,8 @@ const OtherProfile = ()=>{
                display: "flex",
                justifyContent: "space-around",
                margin:"18px 0px",
-               borderBottom: "1px solid grey"
+               borderBottom: "1px solid grey",
+               padding: "15px 0"
             }}>
                 <div>
                     <img src={myInfo.url} style={{height:"150px", width:"160px",borderRadius:"50%"}} />
@@ -143,7 +144,8 @@ const OtherProfile = ()=>{
                         <div style={{
                             display: "flex",
                             justifyContent:"space-between",
-                            width: "105%"
+                            width: "105%",
+                            flexWrap:"wrap",
                         }}>
                             <h6>{myPics.length} Posts</h6>
                             <h6>{myInfo.followers.length} Folowers</h6>
