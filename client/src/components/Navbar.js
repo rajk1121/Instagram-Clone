@@ -1,4 +1,4 @@
-import React,{useContext} from 'react'
+import React,{useContext, useEffect} from 'react'
 import {Link} from 'react-router-dom'
 import {UserContext} from '../App'
 import {useHistory} from 'react-router-dom'
@@ -7,10 +7,13 @@ import M from 'materialize-css'
 const Navbar = ()=>{
   const history = useHistory()
   
-  document.addEventListener('DOMContentLoaded', function() {
-    var elems = document.querySelectorAll('.sidenav');
-    var instances = M.Sidenav.init(elems, {});
-  });
+  useEffect(()=>{
+    // document.addEventListener('DOMContentLoaded', function() {
+      var elems = document.querySelectorAll('.sidenav');
+      console.log(elems)
+      var instances = M.Sidenav.init(elems, {});
+    
+  }, [])
 
   const {state, dispatch} = useContext(UserContext)
   console.log(state)
@@ -41,7 +44,7 @@ const Navbar = ()=>{
                 
               </div>
             </nav>
-            <ul class="sidenav" id="mobile-demo">
+            <ul  id="mobile-demo" className="sidenav">
               {/* <li><SearchModal></SearchModal></li> */}
               <li><Link to="/">Home</Link></li>
               <li><Link to="/profile">Profile</Link></li>
@@ -54,17 +57,27 @@ const Navbar = ()=>{
     )
     }else{
       return (
-        <nav>
-        <div className="nav-wrapper">
-          <Link to="#" className="brand-logo left">Instagram</Link>
-          <ul id="nav-mobile" className="right">
-            <li><Link to="/login">LogIn</Link></li>
-            <li><Link to="/signup">SignUp</Link></li>
-            {/* <li><Link to="/profile">Profile</Link></li> */}
-              
+        <div>
+          <nav>
+              <div className="nav-wrapper">
+                <a href="#" data-target="mobile-demo" className="sidenav-trigger"><i className="material-icons">menu</i></a>
+                
+                  <Link to="/" className="brand-logo left hide-on-med-and-down">Instagram</Link>
+                  
+                <ul  id="" className="right hide-on-med-and-down">
+                {/* <li><SearchModal className="right"></SearchModal></li> */}
+              <li><Link to="/login">Login</Link></li>
+              <li><Link to="/signup">Sign Up</Link></li>
+                </ul>
+                
+              </div>
+            </nav>
+            <ul  id="mobile-demo" className="sidenav">
+              {/* <li><SearchModal></SearchModal></li> */}
+              <li><Link to="/login">Login</Link></li>
+              <li><Link to="/signup">Sign Up</Link></li>
           </ul>
         </div>
-      </nav>
             
     )
     }

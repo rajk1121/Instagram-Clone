@@ -1,6 +1,7 @@
 import React , {useEffect, useContext, createContext, useReducer} from 'react';
 import './App.css';
 import Navbar from './components/Navbar'
+import Footer from './components/Footer'
 import Home from './components/screens/Home'
 import LogIn from './components/screens/LogIn'
 import SignUp from './components/screens/SignUp'
@@ -57,6 +58,7 @@ function App() {
       <BrowserRouter >
         <Navbar />
         <Router />
+        <Footer/>
       </BrowserRouter >
     </UserContext.Provider>
     // </div>
