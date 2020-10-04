@@ -7,6 +7,7 @@ const Profile = (props)=>{
     console.log(state)
     const history = useHistory()
     const [myPics, setPics] = useState([])
+    const [isLoading, setLoading] = useState(true)
     const [sub, setSub] = useState({
         followers: 0,
         following : 0
@@ -23,11 +24,13 @@ const Profile = (props)=>{
             // newData.pics = data.message
             // newData.following = data.user.following
             // newData.followers = data.u
+            console.log(data.message)
             setPics(data.message)
             setSub({
                 followers: data.user.followers.length,
                 following : data.user.following.length
             })
+            setLoading(false)
         })
     }, [])
     // if(!props.isLogged){
@@ -37,6 +40,52 @@ const Profile = (props)=>{
     if(!state){
         return(
             <div></div>
+        )
+    }
+    if(isLoading){
+        return (
+                    
+            <div class="preloader-wrapper big active">
+            <div class="spinner-layer spinner-blue">
+              <div class="circle-clipper left">
+                <div class="circle"></div>
+              </div><div class="gap-patch">
+                <div class="circle"></div>
+              </div><div class="circle-clipper right">
+                <div class="circle"></div>
+              </div>
+            </div>
+      
+            <div class="spinner-layer spinner-red">
+              <div class="circle-clipper left">
+                <div class="circle"></div>
+              </div><div class="gap-patch">
+                <div class="circle"></div>
+              </div><div class="circle-clipper right">
+                <div class="circle"></div>
+              </div>
+            </div>
+      
+            <div class="spinner-layer spinner-yellow">
+              <div class="circle-clipper left">
+                <div class="circle"></div>
+              </div><div class="gap-patch">
+                <div class="circle"></div>
+              </div><div class="circle-clipper right">
+                <div class="circle"></div>
+              </div>
+            </div>
+      
+            <div class="spinner-layer spinner-green">
+              <div class="circle-clipper left">
+                <div class="circle"></div>
+              </div><div class="gap-patch">
+                <div class="circle"></div>
+              </div><div class="circle-clipper right">
+                <div class="circle"></div>
+              </div>
+            </div>
+          </div>
         )
     }
     return (

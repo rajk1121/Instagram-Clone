@@ -77,3 +77,6 @@
 .collection-item{
   color: black
 }
+img{
+  object-fit : cover
+}

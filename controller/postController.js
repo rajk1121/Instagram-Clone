@@ -30,14 +30,14 @@ const createPost = async (req, res)=>{
     }
 }
 const allPost = async(req, res)=>{
-    let data = await postModel.find({postedBy : {$in : req.user.following}}).populate('postedBy', '_id Name url').populate('comments.user', '_id Name')
+    let data = await postModel.find({postedBy : {$in : req.user.following}}).populate('postedBy', '_id Name url').populate('comments.user', '_id Name').sort("-created")
     res.json({
         message : data
     })
 }
 const myPost = async (req, res)=>{
     try{
-        let posts = await postModel.find({postedBy : req.user})
+        let posts = await postModel.find({postedBy : req.user}).populate('comments.user', '_id Name').sort("-created")
         let user = await userModel.findOne({_id : req.user._id})
         res.json({
             message : posts,

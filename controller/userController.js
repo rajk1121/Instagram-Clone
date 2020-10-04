@@ -4,7 +4,7 @@ const mongoose = require('mongoose')
 const fetchUser = async (req, res)=>{
     try{
         let user = await (await userModel.findOne({_id : req.params.userId}))
-        let posts = await postModel.find({postedBy : req.params.userId})
+        let posts = await postModel.find({postedBy : req.params.userId}).populate("comments.user","_id Name")
         console.log( user.followers.includes( req.user._id))
         // user.isFollowing = user.followers.includes( req.user._id) ? true : false
         console.log(user)
