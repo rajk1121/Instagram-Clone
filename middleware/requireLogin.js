@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken')
 const userModel = require('../models/userSchema')
-const {JWTKEY} = require('../keys.json')
+const {JWTKEY} = require('../config/key')
 const middleware = async (req, res, next)=>{
     try{
         console.log(req.headers)

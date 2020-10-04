@@ -1,7 +1,7 @@
 const userModel = require("../models/userSchema")
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
-const {JWTKEY} = require('../keys.json')
+const {JWTKEY} = require('../config/key')
 const passwordValidator = require("password-validator")
 var schema = new passwordValidator();
  
