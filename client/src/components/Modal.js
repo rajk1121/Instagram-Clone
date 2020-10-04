@@ -4,9 +4,14 @@ import M from "materialize-css";
 
 class Modal extends Component {
   state = {
-    Item : this.props.Item
+    Item :  this.props.Item
   }
+  
   componentDidMount() {
+    console.log('hello')
+    // this.setprops({
+    //   Item : this.props.Item
+    // })
     const options = {
       onOpenStart: () => {
         console.log("Open Start");
@@ -51,7 +56,7 @@ class Modal extends Component {
         if(result.message == 'Commented'){
            
           M.toast({html:result.message , classes: "green darken-1"})
-          let item = {...this.state.Item}
+          let item = {...this.props.Item}
           item.comments.push({
             user : {_id : JSON.parse(localStorage.getItem('user')).id},
             text : comment
@@ -67,28 +72,33 @@ class Modal extends Component {
 }
 
   render() {
-      console.log(this.state.Item)
+      console.log(this.props.Item)
+      if(this.props.Item.length==0){
+        return(
+          <div></div>
+        )
+      }
     return (
       <div>
         <a>
           
           <img className="item modal-trigger" 
-          data-target={this.state.Item._id} src={this.state.Item.photo}></img>
+          data-target={this.props.Item._id} src={this.props.Item.photo}></img>
         </a>
 
         <div
           ref={Modal => {
             this.Modal = Modal;
           }}
-          id={this.state.Item._id}
+          id={this.props.Item._id}
           className="modal"
         >
           <div className="modal-content">
-          <img className="modal-pic"  src={this.state.Item.photo}></img><br></br>
-        <p>{this.state.Item.likes.length} Likes</p>
+          <img className="modal-pic"  src={this.props.Item.photo}></img><br></br>
+        <p>{this.props.Item.likes.length} Likes</p>
         <h5>Comments</h5>
               {
-                  this.state.Item.comments.map(result=>{
+                  this.props.Item.comments.map(result=>{
                       return (
                           <div>
                               <h6><span style={{"fontWeight": "bold"}}>{result.user._id==JSON.parse(localStorage.getItem('user')).id ? "You" : result.user.Name}</span> <span>{result.text}</span></h6>
@@ -98,7 +108,7 @@ class Modal extends Component {
               }
               <form onSubmit={(e)=>{
                   e.preventDefault()
-                  this.postComment(this.state.Item,e.target[0].value )
+                  this.postComment(this.props.Item,e.target[0].value )
                   e.target[0].value=""
               }}>
                 <input type="text" placeholder="Comment ...."/>  

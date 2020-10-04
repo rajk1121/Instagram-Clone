@@ -9,13 +9,16 @@ const OtherProfile = ()=>{
     const history = useHistory()
     const [myPics, setPics] = useState([])
     const [myInfo, setInfo] = useState()
+    const [isLoading, setLoading] = useState(true)
     console.log(myInfo)
+    console.log(myPics)
     const [isFollowing, setIsFollowing] = useState({})
     const {userId} = useParams()
     if(userId == JSON.parse(localStorage.getItem('user')).id){
         history.push('/profile')
     }
     useEffect(()=>{
+        setLoading(true)
         fetch('/user/fetchUser/'+userId, {
             method : "get",
             headers : {
@@ -27,6 +30,7 @@ const OtherProfile = ()=>{
             data.user.isFollowing = data.isFollowing
             setInfo(data.user)
             setPics(data.message)
+            setLoading(false)
             // isFollowing = true
         })
     }, [userId])
@@ -71,9 +75,50 @@ const OtherProfile = ()=>{
     //     history.push('/login')
     //     return
     // }
-    if(!myInfo){
+    if(isLoading){
         return(
-            <div></div>
+            <div class="preloader-wrapper big active">
+            <div class="spinner-layer spinner-blue">
+              <div class="circle-clipper left">
+                <div class="circle"></div>
+              </div><div class="gap-patch">
+                <div class="circle"></div>
+              </div><div class="circle-clipper right">
+                <div class="circle"></div>
+              </div>
+            </div>
+      
+            <div class="spinner-layer spinner-red">
+              <div class="circle-clipper left">
+                <div class="circle"></div>
+              </div><div class="gap-patch">
+                <div class="circle"></div>
+              </div><div class="circle-clipper right">
+                <div class="circle"></div>
+              </div>
+            </div>
+      
+            <div class="spinner-layer spinner-yellow">
+              <div class="circle-clipper left">
+                <div class="circle"></div>
+              </div><div class="gap-patch">
+                <div class="circle"></div>
+              </div><div class="circle-clipper right">
+                <div class="circle"></div>
+              </div>
+            </div>
+      
+            <div class="spinner-layer spinner-green">
+              <div class="circle-clipper left">
+                <div class="circle"></div>
+              </div><div class="gap-patch">
+                <div class="circle"></div>
+              </div><div class="circle-clipper right">
+                <div class="circle"></div>
+              </div>
+            </div>
+          </div>
+        
         )
     }
     return (
