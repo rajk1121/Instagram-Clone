@@ -23,9 +23,6 @@ app.use(express.json())
 app.use('/user/', userRouter)
 app.use("/auth/", authRouter)
 app.use('/post/', postRouter)
-app.get("*" , (req, res)=>{
-    res.send("Hello World")
-})
 if(process.env.NODE_ENV=="production"){
     const path = require('path')
     app.use(express.static('client/build'))
