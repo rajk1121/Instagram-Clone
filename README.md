@@ -1,6 +1,13 @@
-# Login
-![](images/Screenshot_2020-10-05 Instagram Clone.png)
+
 # Instagram Clone
+Markup : * Made using MERN Stack.
+         * Used materialize-css for styling in React framework
+         * Cloudinary for storing images
+         * Deployed on Heroku server.
+Markup :  [Try it Now!!!!](https://instaclone1998.herokuapp.com/ "Named link title") 
+# Login
+![](images/login.png)
+# Home
 ![](images/home.png)
 # Profile
 ![](images/profile.png)
