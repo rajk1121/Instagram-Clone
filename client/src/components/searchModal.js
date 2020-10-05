@@ -23,7 +23,7 @@ class SearchModal extends Component {
             })
         }).then(res=>res.json())
         .then(result=>{
-            console.log(result)
+            // console.log(result)
             this.setState({
                 Item : result.message
             })
@@ -31,18 +31,18 @@ class SearchModal extends Component {
     }
   componentDidMount() {
     const options = {
-      onOpenStart: () => {
-        console.log("Open Start");
-      },
-      onOpenEnd: () => {
-        console.log("Open End");
-      },
-      onCloseStart: () => {
-        console.log("Close Start");
-      },
-      onCloseEnd: () => {
-        console.log("Close End");
-      },
+      // onOpenStart: () => {
+      //   console.log("Open Start");
+      // },
+      // onOpenEnd: () => {
+      //   console.log("Open End");
+      // },
+      // onCloseStart: () => {
+      //   console.log("Close Start");
+      // },
+      // onCloseEnd: () => {
+      //   console.log("Close End");
+      // },
       inDuration: 250,
       outDuration: 250,
       opacity: 0.5,
@@ -59,7 +59,7 @@ class SearchModal extends Component {
   }
 
   render() {
-      console.log(this.state.Item)
+      // console.log(this.state.Item)
     return (
         <div>
         <i data-target="search" className="material-icons modal-trigger " >search</i>
@@ -76,7 +76,7 @@ class SearchModal extends Component {
                 value={this.state.searchText}
                 onChange = {this.setSearch}
                 ></input>
-                <ul class="collection">
+                <ul className="collection">
                     {
                         this.state.Item.map((item)=>
                         {

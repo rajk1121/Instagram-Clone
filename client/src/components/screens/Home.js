@@ -5,7 +5,7 @@ import M from 'materialize-css'
 const Home = (props)=>{
     const history = useHistory()
     const {state, dispatch} = useContext(UserContext)
-    console.log(state)
+    // console.log(state)
     // console.log(props)
     // if(!props.isLogged){
     //     console.log("hello")
@@ -14,12 +14,12 @@ const Home = (props)=>{
     // }
     // console.log(state)
     const [data, setData] = useState([])
-    console.log("data", data)
+    // console.log("data", data)
     const [isLoading, setLoading] = useState(true)
     // const [comment, setComment] = useState()
     useEffect(()=>{
         // setData([])
-        console.log("jbjiwwviv")
+        // console.log("jbjiwwviv")
         fetch('/post/allPost', {
             method:"get",
             headers:{
@@ -28,9 +28,9 @@ const Home = (props)=>{
         }).then(res=>res.json())
         .then((result)=>{
             // console.log(result.message)
-            console.log("heloo")
+            // console.log("heloo")
             setLoading(false)
-            console.log(result.message)
+            // console.log(result.message)
             setData(result.message)
         })
     }, [])
@@ -73,7 +73,7 @@ const Home = (props)=>{
             })
         }).then(res=>res.json())
         .then((result)=>{
-            console.log(result)
+            // console.log(result)
             if(result.message == 'Commented'){
                 M.toast({html:result.message , classes: "green darken-1"})
                 const newData = data.map((d=>{

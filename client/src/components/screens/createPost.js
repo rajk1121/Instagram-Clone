@@ -48,18 +48,18 @@ const CreatePost = (props)=>{
         fileData.append("upload_preset", "inst-clone")
         fileData.append("cloud_name", "duhj89kch")
         
-        console.log("dbhodq")
+        // console.log("dbhodq")
         fetch('https://api.cloudinary.com/v1_1/duhj89kch/image/upload',{
             method:"post",
             body : fileData
         }).then(res=>res.json())
         .then((data)=>{
-            console.log(data)
+            // console.log(data)
             setUrl(data.url)
             
         }).catch((err)=>{
             setLoading(false)
-            console.log(err)
+            // console.log(err)
         })
     }
     

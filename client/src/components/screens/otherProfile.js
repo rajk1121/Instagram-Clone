@@ -5,20 +5,26 @@ import M from 'materialize-css'
 import Modal from '../Modal'
 const OtherProfile = ()=>{
     const {state, dispatch} = useContext(UserContext)
-    console.log(state)
+    // console.log(state)
     const history = useHistory()
     const [myPics, setPics] = useState([])
     const [myInfo, setInfo] = useState()
     const [isLoading, setLoading] = useState(true)
-    console.log(myInfo)
-    console.log(myPics)
+    // console.log(myInfo)
+    // console.log(myPics)
     const [isFollowing, setIsFollowing] = useState({})
     const {userId} = useParams()
-    if(userId == JSON.parse(localStorage.getItem('user')).id){
-        history.push('/profile')
+    if(localStorage.getItem('user')){
+      if(userId == JSON.parse(localStorage.getItem('user')).id){
+          history.push('/profile')
+      }
+
     }
     useEffect(()=>{
         setLoading(true)
+         if(!localStorage.getItem('user')){
+          
+        }else{
         fetch('/user/fetchUser/'+userId, {
             method : "get",
             headers : {
@@ -26,13 +32,14 @@ const OtherProfile = ()=>{
             }
         }).then(res=>res.json())
         .then((data)=>{
-            console.log(data)
+            // console.log(data)
             data.user.isFollowing = data.isFollowing
             setInfo(data.user)
             setPics(data.message)
             setLoading(false)
             // isFollowing = true
         })
+      }
     }, [userId])
     const requestFollow=()=>{
         fetch('/user/follow',{
@@ -66,7 +73,7 @@ const OtherProfile = ()=>{
         .then(result=>{
             let newInfo = result.user
             newInfo.isFollowing = false
-            console.log(newInfo)
+            // console.log(newInfo)
             setInfo(newInfo)
             M.toast({html : result.message, classes:"green darken-1"})
         })

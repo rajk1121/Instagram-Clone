@@ -4,7 +4,7 @@ import {UserContext} from '../../App'
 import Modal from '../Modal'
 const Profile = (props)=>{
     const {state, dispatch} = useContext(UserContext)
-    console.log(state)
+    // console.log(state)
     const history = useHistory()
     const [myPics, setPics] = useState([])
     const [isLoading, setLoading] = useState(true)
@@ -24,7 +24,7 @@ const Profile = (props)=>{
             // newData.pics = data.message
             // newData.following = data.user.following
             // newData.followers = data.u
-            console.log(data.message)
+            // console.log(data.message)
             setPics(data.message)
             setSub({
                 followers: data.user.followers.length,

@@ -53,12 +53,12 @@ const SignUp = (props)=>{
             body : fileData
         }).then(res=>res.json())
         .then((data)=>{
-            console.log(data)
+            // console.log(data)
             setUrl(data.url)
             
         }).catch((err)=>{
             setLoading(false)
-            console.log(err)
+            // console.log(err)
         })
     }
     return (

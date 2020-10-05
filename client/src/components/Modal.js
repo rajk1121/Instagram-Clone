@@ -8,23 +8,23 @@ class Modal extends Component {
   }
   
   componentDidMount() {
-    console.log('hello')
+    // console.log('hello')
     // this.setprops({
     //   Item : this.props.Item
     // })
     const options = {
-      onOpenStart: () => {
-        console.log("Open Start");
-      },
-      onOpenEnd: () => {
-        console.log("Open End");
-      },
-      onCloseStart: () => {
-        console.log("Close Start");
-      },
-      onCloseEnd: () => {
-        console.log("Close End");
-      },
+      // onOpenStart: () => {
+      //   // console.log("Open Start");
+      // },
+      // onOpenEnd: () => {
+      //   console.log("Open End");
+      // },
+      // onCloseStart: () => {
+      //   console.log("Close Start");
+      // },
+      // onCloseEnd: () => {
+      //   console.log("Close End");
+      // },
       inDuration: 250,
       outDuration: 250,
       opacity: 0.5,
@@ -52,7 +52,7 @@ class Modal extends Component {
         })
     }).then(res=>res.json())
     .then((result)=>{
-        console.log(result)
+        // console.log(result)
         if(result.message == 'Commented'){
            
           M.toast({html:result.message , classes: "green darken-1"})
@@ -72,7 +72,7 @@ class Modal extends Component {
 }
 
   render() {
-      console.log(this.props.Item)
+      // console.log(this.props.Item)
       if(this.props.Item.length==0){
         return(
           <div></div>

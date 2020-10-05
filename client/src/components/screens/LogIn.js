@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import {useHistory} from 'react-router-dom'
 import M from 'materialize-css'
 import {UserContext} from '../../App'
@@ -12,13 +12,19 @@ const LogIn = ()=>{
     const [password, setPassword] = useState()
     const [email, setEmail] = useState()
     const[isLoading, setLoading] = useState(false)
+    useEffect(()=>{
+      if(localStorage.getItem('user')){
+        history.push('/')
+  
+      }
+    }, [])
     function request(){
         setLoading(true)
         fetch('/auth/login?email='+email+"&password="+password,{
             method : "get"
         }).then(res=>res.json())
         .then((data)=>{
-            console.log(data)
+            // console.log(data)
             if(data.message=="Login Successfull"){
                 localStorage.setItem('jwt', data.token)
                 localStorage.setItem('user', JSON.stringify(data.user))

@@ -10,13 +10,13 @@ const Navbar = ()=>{
   useEffect(()=>{
     // document.addEventListener('DOMContentLoaded', function() {
       var elems = document.querySelectorAll('.sidenav');
-      console.log(elems)
+      // console.log(elems)
       var instances = M.Sidenav.init(elems, {});
     
   }, [])
 
   const {state, dispatch} = useContext(UserContext)
-  console.log(state)
+  // console.log(state)
   const logout = ()=>{
     localStorage.clear()
     dispatch({type:"CLEAR"})
@@ -30,6 +30,7 @@ const Navbar = ()=>{
                 <a href="#" data-target="mobile-demo" className="sidenav-trigger"><i className="material-icons">menu</i></a>
                 
                   <Link to="/" className="brand-logo left hide-on-med-and-down">Instagram</Link>
+                  <Link to="/" className="brand-logo center hide-on-large">Instagram</Link>
                   <ul style={{margin : "0 20px"}} className="right">
                   <li><SearchModal ></SearchModal></li>
                   </ul>

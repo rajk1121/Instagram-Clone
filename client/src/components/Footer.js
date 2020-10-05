@@ -3,7 +3,7 @@ const Footer = ()=>{
     return(
         <div style={{backgroundColor: "violet", padding: "1rem", textAlign : "center"}}>
 
-            <span style={{color: "pink"}}>Made with  <i class="material-icons" style={{color: "red"}}>favorite</i> By <span style={{color: "pink"}}>Rajat Kumar</span></span> 
+            <span style={{color: "pink"}}>Made with  <i className="material-icons" style={{color: "red"}}>favorite</i> By <span style={{color: "pink"}}>Rajat Kumar</span></span> 
         </div>
     )
 }

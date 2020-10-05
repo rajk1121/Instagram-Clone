@@ -14,11 +14,11 @@ export const UserContext = createContext()
 const Router = ()=>{
   const history = useHistory()
   const {state, dispatch} = useContext(UserContext)
-  console.log(state)
+  // console.log(state)
   useEffect(()=>{
-    console.log("dnoded")
+    // console.log("dnoded")
     if(localStorage.getItem('user')){
-      console.log("local")
+      // console.log("local")
       dispatch({type : "USER", payload : JSON.parse(localStorage.getItem('user'))})
       history.push('/')
     }else{
