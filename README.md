@@ -12,4 +12,4 @@
 # Profile
 ![](images/profile.png)
 # Mobile Home
-![](images/phoneHome.png)
+![](images/phoneHome.jpg)
