@@ -19,12 +19,12 @@ const LogIn = ()=>{
   
       }
     }, [])
-    function request(source){
+    function request(source, Email){
         setLoading(true)
         if(!source){
           source = "normal"
         }
-        fetch('/auth/login?email='+email+"&password="+password+"&source="+source,{
+        fetch('/auth/login?email='+(source=='google' ? Email : email)+"&password="+password+"&source="+source,{
             method : "get"
         }).then(res=>res.json())
         .then((data)=>{

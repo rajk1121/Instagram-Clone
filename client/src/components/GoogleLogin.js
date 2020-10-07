@@ -13,7 +13,7 @@ function LoginGoogle(props) {
     alert(
       `Logged in successfully welcome ${res.profileObj.name} 😍. \n See console for full profile object.`
     );
-    props.call("google")
+    props.call("google",res.profileObj.email)
     // refreshTokenSetup(res);
   };
 
