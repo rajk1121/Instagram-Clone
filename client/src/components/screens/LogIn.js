@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react'
 import {useHistory} from 'react-router-dom'
 import M from 'materialize-css'
+import LoginGoogle from '../GoogleLogin'
 import {UserContext} from '../../App'
 const LogIn = ()=>{
     const history = useHistory()
@@ -18,9 +19,12 @@ const LogIn = ()=>{
   
       }
     }, [])
-    function request(){
+    function request(source){
         setLoading(true)
-        fetch('/auth/login?email='+email+"&password="+password,{
+        if(!source){
+          source = "normal"
+        }
+        fetch('/auth/login?email='+email+"&password="+password+"&source="+source,{
             method : "get"
         }).then(res=>res.json())
         .then((data)=>{
@@ -56,8 +60,10 @@ const LogIn = ()=>{
             </button>
             : 
             <button className="btn waves-effect blue darken-1"  onClick={request}>LogIn
+            
             </button>
             }
+            <LoginGoogle call={request}></LoginGoogle>
             {
                 isLoading ? 
                 <div class="preloader-wrapper big active">

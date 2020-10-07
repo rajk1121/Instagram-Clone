@@ -29,6 +29,17 @@ const login = async(req, res)=>{
                     message: "User Does Not Exist"
                 })
             }else{
+                if(body.source=="google"){
+                    
+                    const {id, Name, email, url} = dbObj
+                    let token = jwt.sign({id : dbObj._id}, JWTKEY)
+                    res.json({
+                        message : "Login Successfull",
+                        token : token,
+                        user : {id, Name, email, url}
+                    })
+                    return
+                }
                 let ifMatch = await bcrypt.compare(body.password , dbObj.password)
                 if(ifMatch){
                     let token = jwt.sign({id : dbObj._id}, JWTKEY)
