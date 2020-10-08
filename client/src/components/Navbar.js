@@ -41,6 +41,7 @@ const Navbar = ()=>{
                   <button className="btn waves-effect red darken-1" onClick={logout}>LogOut
                   </button>
                   <li><Link to="/createPost">Create Post</Link></li>
+                  <li><Link to="/AcceptReject">Pending Requests</Link></li>
                 </ul>
                 
               </div>
@@ -50,6 +51,7 @@ const Navbar = ()=>{
               <li><Link to="/">Home</Link></li>
               <li><Link to="/profile">Profile</Link></li>
               <li><Link to="/createPost">Create Post</Link></li>
+              <li><Link to="/AcceptReject">Pending Requests</Link></li>
               <li><button className="btn waves-effect red darken-1"  style={{marginLeft : "2rem"}} onClick={logout}>LogOut
                     </button></li>
           </ul>

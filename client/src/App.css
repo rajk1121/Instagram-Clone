@@ -91,3 +91,13 @@ img{
     display:  block !important;
   }
 }
+.accept, .reject{
+  margin-left: 0.3rem ;
+}
+.acceotReject-card{
+  width: 334px !important;
+  max-width: 500px;
+  margin: 30px auto;
+  padding: 15px 0;
+  /* margin: auto !important; */
+}

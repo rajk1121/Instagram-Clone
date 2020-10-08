@@ -34,6 +34,13 @@ const userSchema = new mongoose.Schema({
             type : ObjectId,
             ref : "IGUser"
         }
+    ],
+
+    pending : [
+        {
+            type : ObjectId,
+            ref : "IGUser"
+        }
     ]
 })
 const userModel = mongoose.model("IGUser", userSchema)

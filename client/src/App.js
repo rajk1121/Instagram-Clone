@@ -8,6 +8,7 @@ import SignUp from './components/screens/SignUp'
 import Profile from './components/screens/Profile'
 import CreatePost from './components/screens/createPost'
 import OtherProfile from './components/screens/otherProfile'
+import AcceptReject from './components/screens/AcceptReject'
 import {initialState,reducer} from './reducres/userReducer'
 import {BrowserRouter, Route, Switch, useHistory} from 'react-router-dom'
 export const UserContext = createContext()
@@ -44,6 +45,9 @@ const Router = ()=>{
         </Route>
         <Route path='/createPost'>
           <CreatePost></CreatePost>
+        </Route>
+        <Route path='/AcceptReject'>
+          <AcceptReject></AcceptReject>
         </Route>
       </Switch>
   )
